@@ -12,17 +12,16 @@ import board
 
 # Unused keycode to be used on keys that I am not sure about
 # like "pi" key and "CRSR"
-________ = 0x00
+KC_EMPTY = 0x00
 
 # Keymap that maps keys in a "logical" way to HID keycodes 
-kmap = 
-[
-    [KC.ESCAPE, KC.ONE, KC.TWO, KC.THREE, KC.FOUR, KC.FIVE, KC.SIX, KC.SEVEN, KC.EIGHT, KC.NINE, KC.ZERO, _______, ________, ________, ________, ________, KC.F1],
-    [KC.TAB, KC.Q, KC.W, KC.E, KC.R, KC.T, KC.Y, KC.U, KC.I, KC.O, KC.P, _______, ________, ________, KC.BACKSPACE, KC.F3],
-    [KC.LEFT_SHIFT, KC.CAPS_LOCK, KC.A, KC.S, KC.D, KC.F, KC.G, KC.H, KC.J, KC.J, KC.K, KC.L, ________, ________, ________, KC.ENTER, KC.F5],
-    [KC.LEFT_CONTROL, KC.COMMAND, KC.Z, KC.X, KC.C, KC.V, KC.B, KC.N, KC.M, KC.COMMA, KC.PERIOD, ________, KC.RIGHT_SHIFT, KC.RIGHT_ALT, KC.RIGHT_CONTROL, KC.F7],
-    [KC.BACKSPACE]
-]
+kmap = [
+        [KC.ESCAPE, KC.ONE, KC.TWO, KC.THREE, KC.FOUR, KC.FIVE, KC.SIX, KC.SEVEN, KC.EIGHT, KC.NINE, KC.ZERO, KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY, KC.F1],
+        [KC.TAB, KC.Q, KC.W, KC.E, KC.R, KC.T, KC.Y, KC.U, KC.I, KC.O, KC.P, KC_EMPTY, KC_EMPTY, KC_EMPTY, KC.BACKSPACE, KC.F3],
+        [KC.LEFT_SHIFT, KC.CAPS_LOCK, KC.A, KC.S, KC.D, KC.F, KC.G, KC.H, KC.J, KC.J, KC.K, KC.L, KC_EMPTY, KC_EMPTY, KC_EMPTY, KC.ENTER, KC.F5],
+        [KC.LEFT_CONTROL, KC.COMMAND, KC.Z, KC.X, KC.C, KC.V, KC.B, KC.N, KC.M, KC.COMMA, KC.PERIOD, KC_EMPTY, KC.RIGHT_SHIFT, KC.RIGHT_ALT, KC.RIGHT_CONTROL, KC.F7],
+        [KC.BACKSPACE]
+    ]
 
 # Code beyond this line is not understandable if you don't read kb_matrix document provided in proj root.
 #--------------------------------------------

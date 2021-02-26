@@ -1,7 +1,11 @@
 # code.py is the main entry to the program.
 # Author: Karl Strålman
 
-import kb.Keyboard
-import kb_layout
+import kb
+import kb_map
+import time
 
-kb = Keyboard(name="VIC-20", layout=keyboard-layout.vic_20_sv)
+keyboard = kb.KeyboardImpl(name="VIC-20")
+
+while True:
+    keyboard.keyboard_scan()
