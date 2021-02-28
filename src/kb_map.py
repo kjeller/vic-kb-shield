@@ -3,8 +3,6 @@
 # Pins are then mapped to GPIO ports which are then mapped to a keymap.
 #
 # FDG: Keyboard layers, would be cool.
-#
-#
 # Author: Karl Strålman
 
 from adafruit_hid.keycode import Keycode as KC
@@ -23,12 +21,54 @@ kmap = [
         [KC.SPACE]
     ]
 
-# Code beyond this line is not understandable if you don't read kb_matrix document provided in proj root.
-#--------------------------------------------
-
 # Maps pinmap to keymap. This array is used for finding what key is pressed during a scan.
 # The gpio map is placed ontop of this array to find out what keycode to send.
-
+#╔═══╦══════════╦════════╦═══════╦══════════════╦═════════╦══════╦═════════╦══════╦═════════╗
+#║   ║ 0        ║ 1      ║ 2     ║ 3            ║ 4       ║ 5    ║ 6       ║ 7    ║ 8       ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ A ║ 1        ║ <-     ║ CTRL  ║ RUN/STOP     ║ SPACE   ║ LOGO ║ Q       ║ 2    ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ B ║ 3        ║ W      ║ A     ║ L SHIFT      ║ Z       ║ S    ║ E       ║ 4    ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ C ║ 5        ║ R      ║ D     ║ X            ║ C       ║ F    ║ T       ║ 6    ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ D ║ 7        ║ Y      ║ G     ║ V            ║ B       ║ H    ║ U       ║ 8    ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ E ║ 9        ║ I      ║ J     ║ N            ║ M       ║ K    ║ O       ║ 0    ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ F ║ +        ║ P      ║ L     ║ <            ║ >       ║ :    ║ @       ║ -    ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ G ║ £        ║ *      ║ ;     ║ ?            ║ H SHIFT ║ =    ║ UPARROW ║ HOME ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ H ║ DEL/INST ║ RETURN ║ CRSR  ║ CRSR UP/DOWN ║ F1      ║ F3   ║ F5      ║ F7   ║         ║
+#╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
+#║ I ║          ║        ║       ║              ║         ║      ║         ║      ║ Restore ║
+#╚═══╩══════════╩════════╩═══════╩══════════════╩═════════╩══════╩═════════╩══════╩═════════╝
+# Table generated from: https://www.tablesgenerator.com/text_tables#
+#
+# This is how the keyboard is connected From A-I and 0-8:
+#========================
+# "Pin number": "Cable Color" = "Port"
+#
+# 0:	Brown/White   = A
+# 1:	Red/White     = B
+# 2:	Orange/White  = C
+# 3:	Yellow/White  = D
+# 4:	Green/White   = E
+# 5:	Blue/White    = F
+# 6:	Purple/White  = G
+# 7:	Gray/White    = H
+# 8:	Brown         = 0
+# 9:	Red           = 1
+# 10:	Orange        = 2
+# 11:	Yellow        = 3
+# 12:	Green         = 4
+# 13:	Blue          = 5
+# 14:	Purple        = 6
+# 15:	Gray          = 7
+# 16:	Black         = 8
+#
+# 17:	White         = I
 pmap = [
     # Col:0            1            2            3            4            5            6            7       8
     [kmap[0][1],  kmap[0][0],  kmap[1][0],  kmap[2][0],  kmap[4][0],  kmap[3][0],  kmap[1][1],  kmap[0][2],  None], # A
