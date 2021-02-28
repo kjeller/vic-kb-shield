@@ -41,6 +41,8 @@ class KeyboardImpl:
 
     # Scan keyboard matrixfor keystrokes.
     # A registered keystroke will be send directly to the host USB.
+    # TODO Implemenb usb hid code buffer that is sent after each scan instead of writing individual codes
+    # during scan. That is not error prone to switch bounces and such.
     def keyboard_scan(self):
         print("Keyboard scan")
         for col in self.key_col:
@@ -52,7 +54,6 @@ class KeyboardImpl:
                     j = self.key_row.index(row)
                     print("Col #%d, Row #%d" % (i, j))
                 
-                    #TODO add some sort of timer here to support constant keycode send
                     while not col.value:
                         pass # wait for ungrounded
                     
