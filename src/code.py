@@ -8,4 +8,4 @@ import time
 keyboard = kb.KeyboardImpl(name="VIC-20")
 
 while True:
-    keyboard.keyboard_scan()
+    keyboard.update()

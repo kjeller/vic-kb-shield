@@ -22,6 +22,15 @@ class KeyboardImpl:
         self.key_row = []
         self.key_col = []
 
+        self.old_scan_matrix = []
+
+        # Last key_event
+        self.keyevent = {"key" : 0, "activeTime" : 0}
+
+        # save timestamp for last sent keyreport, will be used to determine persistant keys
+        self.last_keyreport = [] 
+        self.last_keyreport_time = 0
+
         if layout is None:
             print("Layout is not defined.. using default")
             #TODO what is default
@@ -44,31 +53,79 @@ class KeyboardImpl:
     # TODO Implemenb usb hid code buffer that is sent after each scan instead of writing individual codes
     # during scan. That is not error prone to switch bounces and such.
     def keyboard_scan(self):
-        print("Keyboard scan")
+        scan_matrix = []
         for col in self.key_col:
             for row in self.key_row:
-                row.value = False
-                time.sleep(0.0001)
+                row.value = False # 0V
+                
                 if not col.value: # Check if grounded by row key
                     i = self.key_col.index(col)
                     j = self.key_row.index(row)
-                    print("Col #%d, Row #%d" % (i, j))
-                
-                    while not col.value:
-                        pass # wait for ungrounded
+                    #print("Col #%d, Row #%d" % (i, j))
+
+                    if col.value:
+                        print("Key bounce ignored")
+                        continue
                     
                     # Get HID keycode for the pressed key
                     key = kb_map.pmap_to_kmap(self.key_row.index(row), self.key_col.index(col)) 
-                    if key == None:
+                    if key == None or key == kb_map.KC_EMPTY:
                         print("Key not mapped to anything..")
                         continue
 
-                    self.kbd.send(key)
-                row.value = True
-            
-    #TODO
+                    scan_matrix.append(key)
+                row.value = True # 5V
+        return scan_matrix
+
+    # Determine what to do with scanned key matrix
+    # Keyevent can either be active or new
+    #   active - a key previously activated is depressed and held down
+    #   new - a key not previously pressed is depressed
+    def check_keyevent(self, scan_matrix, old_scan_matrix):
+        key_report = [] 
+        # Check if keystroke was in last keyreport
+        while scan_matrix:
+            current_keystroke = scan_matrix.pop()
+
+            # TODO Compare timestamps to see if persistant keystroke
+            if current_keystroke in self.last_keyreport:
+                now = time.monotonic()
+                time_diff = now - self.last_keyreport_time
+
+                print("")
+                print("Active time: %f" % self.keyevent["activeTime"])
+                print("Time diff:   %f" % time_diff)
+                print("Now:         %f" % now)
+                print("Last keyrpt: %f" % self.last_keyreport_time)
+                print("")
+                
+                if self.keyevent["activeTime"]  > 0.5:  # TODO Add a constant for this magic number
+                    key_report.append(current_keystroke)
+              
+                # Check if last keystroke of same key was entered recently or not
+                # this is to prevent key spam when a user holds down a key, releasing the key 
+                # and then pressing the same key
+                if time_diff > 0.5:
+                    self.keyevent["activeTime"] = 0
+                    time_diff = 0
+                    continue
+
+                self.keyevent["activeTime"] += time_diff
+               
+            else: # Check if new keystroke
+               key_report.append(current_keystroke)
+               self.keyevent["activeTime"] = 0
+
+        if key_report:
+            try:
+                self.kbd.press(*key_report)
+                self.last_keyreport_time = time.monotonic() 
+            except ValueError:
+                print("No more than six regular keys may be pressed simultaneously.")
+            self.kbd.release_all() # send usb hid report with reset buffer
+            self.last_keyreport = key_report
+
     def update(self):
-        # TODO: Get new GPIO pin map read and insert into keyboard scan
-        # Note: Consider adding custom keyboard strokes not part of layout. 
-        #keyboard_scan()
-        print("Update")
+        scan_matrix = self.keyboard_scan()
+        self.check_keyevent(scan_matrix, self.old_scan_matrix)
+        self.old_scan_matrix = scan_matrix
