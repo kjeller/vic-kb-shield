@@ -50,8 +50,6 @@ class KeyboardImpl:
 
     # Scan keyboard matrixfor keystrokes.
     # A registered keystroke will be send directly to the host USB.
-    # TODO Implemenb usb hid code buffer that is sent after each scan instead of writing individual codes
-    # during scan. That is not error prone to switch bounces and such.
     def keyboard_scan(self):
         scan_matrix = []
         for col in self.key_col:
@@ -61,7 +59,7 @@ class KeyboardImpl:
                 if not col.value: # Check if grounded by row key
                     i = self.key_col.index(col)
                     j = self.key_row.index(row)
-                    #print("Col #%d, Row #%d" % (i, j))
+                    print("Col #%d, Row #%d" % (i, j))
 
                     if col.value:
                         print("Key bounce ignored")
@@ -69,9 +67,12 @@ class KeyboardImpl:
                     
                     # Get HID keycode for the pressed key
                     key = kb_map.pmap_to_kmap(self.key_row.index(row), self.key_col.index(col)) 
+                    
                     if key == None or key == kb_map.KC_EMPTY:
                         print("Key not mapped to anything..")
                         continue
+                    else:
+                        print("Keycode" + hex(key))
 
                     scan_matrix.append(key)
                 row.value = True # 5V
@@ -87,7 +88,7 @@ class KeyboardImpl:
         while scan_matrix:
             current_keystroke = scan_matrix.pop()
 
-            # TODO Compare timestamps to see if persistant keystroke
+            # Compare timestamps to see if active keystroke
             if current_keystroke in self.last_keyreport:
                 now = time.monotonic()
                 time_diff = now - self.last_keyreport_time
@@ -99,7 +100,7 @@ class KeyboardImpl:
                 print("Last keyrpt: %f" % self.last_keyreport_time)
                 print("")
                 
-                if self.keyevent["activeTime"]  > 0.5:  # TODO Add a constant for this magic number
+                if self.keyevent["activeTime"]  > 0.7:  # TODO Add a constant for this threshold
                     key_report.append(current_keystroke)
               
                 # Check if last keystroke of same key was entered recently or not

@@ -77,8 +77,8 @@ pmap = [
     [kmap[0][7],  kmap[1][6],  kmap[2][6],  kmap[3][5],  kmap[3][6],  kmap[2][7],  kmap[1][7],  kmap[0][8],  None], # D
     [kmap[0][9],  kmap[1][8],  kmap[2][8],  kmap[3][7],  kmap[3][8],  kmap[2][9],  kmap[1][9],  kmap[0][10], None], # E
     [kmap[0][11], kmap[1][10], kmap[2][10], kmap[3][9],  kmap[3][10], kmap[2][11], kmap[1][11], kmap[0][12], None], # F
-    [kmap[0][13], kmap[1][12], kmap[2][12], kmap[3][11], kmap[3][12], kmap[2][14], kmap[1][13], kmap[0][14], None], # G
-    [kmap[0][15], kmap[2][15], kmap[3][14], kmap[3][13], kmap[0][16], kmap[1][15], kmap[2][15], kmap[3][15], None], # H
+    [kmap[0][13], kmap[1][12], kmap[2][12], kmap[3][11], kmap[3][12], kmap[2][13], kmap[1][13], kmap[0][14], None], # G
+    [kmap[0][15], kmap[2][14], kmap[3][14], kmap[3][13], kmap[0][16], kmap[1][15], kmap[2][15], kmap[3][15], None], # H
     [None,        None,        None,        None,        None,        None,        None,        None,        kmap[1][14]] # I
 ]
 
