@@ -5,6 +5,7 @@
 import kb
 import kb_map
 import kb_layout
+import kb_macros
 import board
 
 # The logic high or low will be written on gpio_row and be read from gpio_col

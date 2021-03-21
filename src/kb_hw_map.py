@@ -51,22 +51,37 @@
 # 
 # Author: Karl Strålman
 
+from kb_key import Key
+
 class KeyboardHwLayout:
     def __init__(self, kmap):
 
+        # keymap
+        self.kmap = kmap
+
         # pinmap
+        # Maps key positions based on col and row from keytrace
         self.pmap = [
-            # Col:0            1            2            3            4            5            6            7       8
-            [kmap[0][1],  kmap[0][0],  kmap[1][0],  kmap[2][0],  kmap[4][0],  kmap[3][0],  kmap[1][1],  kmap[0][2],  None], # A
-            [kmap[0][3],  kmap[1][2],  kmap[2][2],  kmap[3][1],  kmap[3][2],  kmap[2][3],  kmap[1][3],  kmap[0][4],  None], # B
-            [kmap[0][5],  kmap[1][4],  kmap[2][4],  kmap[3][3],  kmap[3][4],  kmap[2][5],  kmap[1][5],  kmap[0][6],  None], # C
-            [kmap[0][7],  kmap[1][6],  kmap[2][6],  kmap[3][5],  kmap[3][6],  kmap[2][7],  kmap[1][7],  kmap[0][8],  None], # D
-            [kmap[0][9],  kmap[1][8],  kmap[2][8],  kmap[3][7],  kmap[3][8],  kmap[2][9],  kmap[1][9],  kmap[0][10], None], # E
-            [kmap[0][11], kmap[1][10], kmap[2][10], kmap[3][9],  kmap[3][10], kmap[2][11], kmap[1][11], kmap[0][12], None], # F
-            [kmap[0][13], kmap[1][12], kmap[2][12], kmap[3][11], kmap[3][12], kmap[2][13], kmap[1][13], kmap[0][14], None], # G
-            [kmap[0][15], kmap[2][14], kmap[3][14], kmap[3][13], kmap[0][16], kmap[1][15], kmap[2][15], kmap[3][15], None], # H
-            [None,        None,        None,        None,        None,        None,        None,        None,        kmap[1][14]] # I
+            # Col:0      1           2           3           4           5           6           7           8
+            [Key(0, 1),  Key(0, 0),  Key(1, 0),  Key(2, 0),  Key(4, 0),  Key(3, 0),  Key(1, 1),  Key(0, 2),  None], # A
+            [Key(0, 3),  Key(1, 2),  Key(2, 2),  Key(3, 1),  Key(3, 2),  Key(2, 3),  Key(1, 3),  Key(0, 4),  None], # B
+            [Key(0, 5),  Key(1, 4),  Key(2, 4),  Key(3, 3),  Key(3, 4),  Key(2, 5),  Key(1, 5),  Key(0, 6),  None], # C
+            [Key(0, 7),  Key(1, 6),  Key(2, 6),  Key(3, 5),  Key(3, 6),  Key(2, 7),  Key(1, 7),  Key(0, 8),  None], # D
+            [Key(0, 9),  Key(1, 8),  Key(2, 8),  Key(3, 7),  Key(3, 8),  Key(2, 9),  Key(1, 9),  Key(0, 10), None], # E
+            [Key(0, 11), Key(1, 10), Key(2, 10), Key(3, 9),  Key(3, 10), Key(2, 11), Key(1, 11), Key(0, 12), None], # F
+            [Key(0, 13), Key(1, 12), Key(2, 12), Key(3, 11), Key(3, 12), Key(2, 13), Key(1, 13), Key(0, 14), None], # G
+            [Key(0, 15), Key(2, 14), Key(3, 14), Key(3, 13), Key(0, 16), Key(1, 15), Key(2, 15), Key(3, 15), None], # H
+            [None,       None,       None,       None,       None,       None,       None,       None,       Key(1, 14)] # I
         ]
 
-    def get_keycode(self, row, col):
-        return self.pmap[row][col]
+    def get_mapped_key(self, key, layer):
+        mapped_key = self.pmap[key.row][key.col]
+        return self.kmap[layer][mapped_key.row][mapped_key.col]
+
+    def get_keymap(self, map, layer):
+        keymap = []
+        for key in map:
+            mapped_key = self.get_mapped_key(key, layer)
+            if mapped_key:
+                keymap.append(mapped_key)
+        return keymap
