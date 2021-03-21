@@ -17,6 +17,6 @@ Install circuitpython on the rpi pico beforehand.
 When connected to a OS with USB HID compatibility, vic-py-kb should be recognized as a USB keyboard.
 
 # FDG
-- The keyboard case needs a holder for the rpi pico 
+- The keyboard case needs an internal holder for the rpi pico (mounted on the screws on the pcb plate)
 - Rewrite adafruit hid to enable name change of USB HID device in initial report.
 - Layers! (QMK-like)
