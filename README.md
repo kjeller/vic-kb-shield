@@ -16,6 +16,7 @@ When connected to an OS with USB HID compatibility, vic-py-kb should be recogniz
 ![Alt text](img/vic-20-keyboard-trace.png?raw=true "Keyboard trace")
 
 A table derived from the keyboard trace:
+```
 ╔═══╦══════════╦════════╦═══════╦══════════════╦═════════╦══════╦═════════╦══════╦═════════╗
 ║   ║ 0        ║ 1      ║ 2     ║ 3            ║ 4       ║ 5    ║ 6       ║ 7    ║ 8       ║
 ╠═══╬══════════╬════════╬═══════╬══════════════╬═════════╬══════╬═════════╬══════╬═════════╣
@@ -38,6 +39,7 @@ A table derived from the keyboard trace:
 ║ I ║          ║        ║       ║              ║         ║      ║         ║      ║ Restore ║
 ╚═══╩══════════╩════════╩═══════╩══════════════╩═════════╩══════╩═════════╩══════╩═════════╝
 Table generated from: https://www.tablesgenerator.com/text_tables#
+```
 # Keymap, Pinmap and key layout..
 The keymap maps to the actual USB HID codes that are determined by what keylayout is in use. The pinmap maps the keyboard trace table to key positions that are traceable to gpio pins configured in code.py
 
