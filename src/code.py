@@ -20,7 +20,7 @@ gpio_row = [board.GP0,
             board.GP8]
 
 # Index 0, 1, 2 maps to col 0, 1, 2 etc. in kb_hw_map
-gpio_col = [board.GP9, 
+gpio_col = [board.GP9,
             board.GP10,
             board.GP11, 
             board.GP12, 
@@ -28,9 +28,7 @@ gpio_col = [board.GP9,
             board.GP14, 
             board.GP15, 
             board.GP16, 
-            board.GP17, 
-            board.GP18, 
-            board.GP19]
+            board.GP17]
 
 keyboard = kb.KeyboardImpl("VIC-20", gpio_row, gpio_col, kb_layout.vic_20_layout)
 

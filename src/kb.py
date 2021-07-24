@@ -21,8 +21,7 @@ class KeyboardImpl:
         self.key_row = [] # write
         self.key_col = [] # read
 
-        self.last_keyreport = {} # used for determining between scans
-        self.last_scan_matrix = {}
+        self.last_scan_matrix = {} # used to determine diff between scans (if a release needs to be signalled)
 
         # Layers 0, 1, 2, 3 where 0 is the default layer 1 & 2 is the extended layers and 3 is the macro layer
         self.current_layer = 0 
@@ -73,23 +72,21 @@ class KeyboardImpl:
             print("INCREMENT LAYER")
             self.current_layer = (self.current_layer + 1) % KC_MACRO_LAYER 
 
-    # Determine what to do with scanned key matrix
-    # Keyevent can either be active or new
-    #   active - a key previously activated is depressed and held down
-    #   new - a key not previously pressed is depressed
+    # Either release or press keys
     def check_keyevent(self, scan_matrix, diff):
+
+        # Check if the release previously pressed key
         if diff:
             mapped_diff = self.keymap.get_keymap(diff, self.current_layer)
             if mapped_diff:
                 self.kbd.release(*mapped_diff)
-                pass
        
+        # If list contains scanned keys de
         if scan_matrix:
             mapped_keys = self.keymap.get_keymap(scan_matrix, self.current_layer)
             if mapped_keys:
                 try:
                     self.kbd.press(*mapped_keys)
-                    pass
                 except ValueError:
                     print("No more than six regular keys may be pressed simultaneously.")
             self.last_scan_matrix = scan_matrix
