@@ -5,7 +5,6 @@
 
 import usb_hid
 import digitalio
-import kb_map
 from kb_key import Key
 from kb_layout import KC_LAYER_INC_KEY_POS, KC_MACRO_LAYER
 from kb_hw_map import KeyboardHwLayout

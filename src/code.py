@@ -3,7 +3,6 @@
 # Author: Karl Strålman
 
 import kb
-import kb_map
 import kb_layout
 import kb_macros
 import board
