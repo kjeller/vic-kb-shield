@@ -1,6 +1,6 @@
 # vic-py-kb
 VIC-20 keyboard controlled by Raspberry Pi Pico using CircuitPython.
-![Alt text](img/keyboard_no_case.jpg?raw=true "VIC-20 USB keyboard")
+![Alt text](img/keyboard_pcb.jpg?raw=true "VIC-20 USB keyboard")
 # Setup/Installation
 1. Donwload Circuitpython 6.3 (or later, make sure that Adafruit HID lib is using the correct version) from https://circuitpython.org/board/raspberry_pi_pico/
 2. Move .uf2 file to the RPI Pico and wait for the device to install it
