@@ -1,18 +1,19 @@
-# vic-py-kb
-VIC-20 keyboard controlled by Raspberry Pi Pico using CircuitPython.
-![Alt text](img/keyboard_pcb.jpg?raw=true "VIC-20 USB keyboard")
-# Setup/Installation
-1. Donwload Circuitpython 6.3 (or later, make sure that Adafruit HID lib is using the correct version) from https://circuitpython.org/board/raspberry_pi_pico/
-2. Move .uf2 file to the RPI Pico and wait for the device to install it
-Now Circuitpython should be installed correctly.
+# vic-kb-shield
+`vic-kb-shield` is a replacement VIC-20 keyboard shield controlled by a Raspberry Pi Pico running ZMK.
+(No VIC-20 computers were harmed in the process).
 
-3. Download 6.X of Adafruit HID library from here: https://github.com/adafruit/Adafruit_CircuitPython_HID/releases
-    e.g. adafruit-circuitpython-hid-6.x-mpy-5.0.1.zip
-4. Extract and move adafruit-circuitpython-hid-6.x-mpy-5.0.1/lib/adafruit_hid to /lib on the RPI
-5. Move all source files to pico
-6. Restart pico
-When connected to an OS with USB HID compatibility, vic-py-kb should be recognized as a USB keyboard.
-# Keyboard trace
+[ZMK](https://zmk.dev/) is a popular alternative to [QMK](https://docs.qmk.fm/#/), both open-source
+keyboard controller firmware.
+*Shield* is [terminology](https://zmk.dev/docs/development/boards-shields-keymaps) from ZMK, meaning a dumb dumb shell of a keyboard that any MCU can connect to and control. Not a fully self-contained keyboard.
+
+The ZMK config for this shield is named `vic_20` and can be found [here](https://github.com/kjeller/zmk-config).
+
+`TODO: Upload KiCad PCB here`
+
+# Keyboard shield and keyboard traces
+
+![Alt text](img/keyboard_pcb.jpg?raw=true "VIC-20 USB keyboard")
+
 ![Alt text](img/vic-20-keyboard-trace.png?raw=true "Keyboard trace")
 
 A table derived from the keyboard trace:
@@ -40,10 +41,3 @@ A table derived from the keyboard trace:
 ╚═══╩══════════╩════════╩═══════╩══════════════╩═════════╩══════╩═════════╩══════╩═════════╝
 Table generated from: https://www.tablesgenerator.com/text_tables#
 ```
-# Keymap, Pinmap and key layout..
-The keymap maps to the actual USB HID codes that are determined by what keylayout is in use. The pinmap maps the keyboard trace table to key positions that are traceable to gpio pins configured in code.py
-
-# FDG
-- The keyboard case needs an internal holder for the rpi pico (mounted on the screws on the pcb plate)
-- Rewrite adafruit hid to enable name change of USB HID device in initial report.
-- Layers! (QMK-like)
